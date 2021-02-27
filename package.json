@@ -1,0 +1,29 @@
+{
+  "name": "npm-force-update",
+  "version": "1.0.3",
+  "description": "Force the update of all your npm dependencies and devDependencies to the latest version.",
+  "main": "index.js",
+  "bin": {
+    "npm-update-all": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markwylde/npm-force-update.git"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markwylde/npm-force-update/issues"
+  },
+  "homepage": "https://github.com/markwylde/npm-force-update#readme",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
