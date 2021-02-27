@@ -4,7 +4,7 @@
   "description": "Force the update of all your npm dependencies and devDependencies to the latest version.",
   "main": "index.js",
   "bin": {
-    "npm-update-all": "index.js"
+    "npm-force-update": "index.js"
   },
   "repository": {
     "type": "git",
