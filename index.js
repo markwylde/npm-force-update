@@ -6,7 +6,13 @@ const childProcess = require('child_process');
 const axios = require('axios');
 
 function update (type, infos) {
-  fs.unlinkSync(path.join(process.cwd(), './package-lock.json'));
+  try {
+    fs.unlinkSync(path.join(process.cwd(), './package-lock.json'));
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      throw error;
+    }
+  }
 
   const repos = infos
     .map(info => info.name + '@' + info['dist-tags'].latest);
