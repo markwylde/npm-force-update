@@ -27,10 +27,27 @@ function update (type, infos) {
 
 async function getInfos (type) {
   const packageJson = require(path.join(process.cwd(), './package.json'));
+  
+  if (!packageJson[type]) {
+    return []
+  }
+
   const infosPromises = Object
     .keys(packageJson[type])
     .map(item => {
-      return axios('http://registry.npmjs.org/' + item);
+      const registry = item.includes('/')
+        ? childProcess.execSync(`npm config get ${item.split('/')[0]}:registry`).toString().trim()
+        : 'http://registry.npmjs.org'
+
+      return axios(registry + '/' + item)
+        .catch(error => {
+          console.log({
+            url: error.response.config.url,
+            status: error.response.status,
+            body: error.response.body
+          })
+          throw error
+        })
     });
 
   const infos = (await Promise.all(infosPromises))
