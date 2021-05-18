@@ -1,6 +1,6 @@
 {
   "name": "npm-force-update",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Force the update of all your npm dependencies and devDependencies to the latest version.",
   "main": "index.js",
   "bin": {
