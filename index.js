@@ -35,9 +35,15 @@ async function getInfos (type) {
   const infosPromises = Object
     .keys(packageJson[type])
     .map(item => {
-      const registry = item.includes('/')
-        ? childProcess.execSync(`npm config get ${item.split('/')[0]}:registry`).toString().trim()
-        : 'http://registry.npmjs.org'
+      if (packageJson[type][item].startsWith('file:')) {
+        return
+      }
+
+      let registry
+      if (item.includes('/')) {
+        registry = childProcess.execSync(`npm config get ${item.split('/')[0]}:registry`).toString().trim()
+      }
+      registry = registry || 'http://registry.npmjs.org';
 
       return axios(registry + '/' + item)
         .catch(error => {
@@ -51,6 +57,7 @@ async function getInfos (type) {
     });
 
   const infos = (await Promise.all(infosPromises))
+    .filter(response => !!response)
     .map(response => response.data);
 
   return infos;
