@@ -42,6 +42,7 @@ async function getInfos (type) {
       let registry
       if (item.includes('/')) {
         registry = childProcess.execSync(`npm config get ${item.split('/')[0]}:registry`).toString().trim()
+        registry = registry !== 'undefined' && registry;
       }
       registry = registry || 'http://registry.npmjs.org';
 
